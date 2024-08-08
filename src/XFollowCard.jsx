@@ -3,7 +3,7 @@ import { useState } from 'react';
 export function XFollowCard({children,userName='unknown'}){
   const [isFollowing, setIsFollowing] = useState(false)
   
-  
+  console.log('[XFollowCard] renderizado con userName:', userName);
   const text = isFollowing ? 'Siguiendo' : 'Seguir' //ternaria
   
     const buttonClassName = isFollowing 
