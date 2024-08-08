@@ -40,15 +40,36 @@
     transition: .3s ease backround-color;
 }
 
-.x-followCard-button.is-following{
-    border: 1px solid green;
+
+.x-followCard-text{
+    display: block;
 }
 
-.x-followCard-button:hover {
-    background-color:red;
-    
+.x-followCard-button.is-following{
+    background: transparent;
+    border: 1px solid #bbb;
+    color:#fff;
+    width: 140px;
 }
 
 .x-followCard-button.is-following:hover{
-    background:green;   
+    background-color:transparent; 
+    color:red;
+    border: 1px solid red;
+    transition: .3s ease all;
+    opacity: 1;
+}
+
+.x-followCard-button.is-following:hover .x-followCard-stopFollow{
+    display:block;
+}
+
+
+.x-followCard-button.is-following:hover .x-followCard-text{
+    display:none;
+}
+
+.x-followCard-stopFollow{
+    display:none;
+    
 }

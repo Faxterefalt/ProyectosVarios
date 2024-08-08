@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-export function XFollowCard({children,userName='unknown'}){
-  const [isFollowing, setIsFollowing] = useState(false)
+export function XFollowCard({children,userName='unknown',initialIsFollowing}){
+  const [isFollowing, setIsFollowing] = useState(initialIsFollowing)
   
   console.log('[XFollowCard] renderizado con userName:', userName);
   const text = isFollowing ? 'Siguiendo' : 'Seguir' //ternaria
@@ -30,7 +30,8 @@ export function XFollowCard({children,userName='unknown'}){
           <aside>
             <button 
                 className={buttonClassName} onClick ={handleClick}>
-                    {text}
+                    <span className='x-followCard-text'>{text}</span>
+                    <span className='x-followCard-stopFollow'>Dejar de seguir</span>
             </button>
           </aside>
       </article>
