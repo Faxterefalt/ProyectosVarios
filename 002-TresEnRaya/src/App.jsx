@@ -1,20 +1,20 @@
 import { useState } from 'react'
 const TURNS = {
-  X: 'x',
-  O: 'o'
+  X: 'x', 
+  O: 'o' 
 }
 
 
 
-const Square = ({children, isSelected, updateBoard, index})=>{
+const Square = ({children, isSelected, updateBoard, index}) =>{
   const className = `square ${isSelected ? 'is-selected':''}`
-  
+
   const handleClick = () => {
-    updateBoard()
+    updateBoard(index)
   }
 
   return(
-    <div conClick={handleClick} className={className}>
+    <div onClick={handleClick} className={className}>
       {children}
     </div>
   )
@@ -28,7 +28,10 @@ function App() {
 
   const [turn, setTurn]= useState(TURNS.X)
 
-  const updateBoard = () => {
+  const updateBoard = (index) => {
+    const newBoard = [... board]
+    newBoard[index] = turn 
+    setBoard(newBoard)
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(newTurn)
 
@@ -44,7 +47,6 @@ function App() {
               <Square
                 key={index}
                 index={index}
-
                 updateBoard={updateBoard}
               >
                 {board[index]}
