@@ -20,6 +20,17 @@ const Square = ({children, isSelected, updateBoard, index}) =>{
   )
 }
 
+const WINNER_COMBOS = [
+  [0,1,2],
+  [3,4,5],
+  [6,7,8],
+  [0,3,6],
+  [1,4,7],
+  [2,5,8],
+  [0,4,8],
+  [2,4,6]
+]
+
 function App() {
 
   const [board, setBoard] = useState(
@@ -27,14 +38,47 @@ function App() {
   )
 
   const [turn, setTurn]= useState(TURNS.X)
+  //null es que no hay ganador, false si hay empate
+  const [winner, setWinner]= useState(null)
+
+  const checkWinner = (boardToCheck) =>{
+    //se revisan todas las combinaciones ganadoras
+    for(const combo of WINNER_COMBOS){
+      const  [a, b, c] = combo
+      if(
+        boardToCheck[a] && // 0 -> x u o
+         boardToCheck[a] === boardToCheck[b] && 
+          boardToCheck[a] === boardToCheck[c]
+       ){
+          return boardToCheck[a] // x u o
+       }
+      
+    }
+    //si no hay ganador
+    return null
+  }
 
   const updateBoard = (index) => {
+
+    //no actualizar posición si tiene algo
+    if(board[index] || winner) return //si hay ganador, no más juego
+
+    //actualizar tablero
     const newBoard = [... board]
     newBoard[index] = turn 
     setBoard(newBoard)
+
+    //cambiar turno
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(newTurn)
 
+    //revisar si hay ganador
+    const newWinner = checkWinner(newBoard)
+    if(newWinner){
+      alert(`Ganador: ${newWinner}`)
+      setWinner(newWinner) //la actualización del estado es asíncrona
+      //si fuese síncrono, winner tendría el estado nuevo
+    }
   }
 
   return (
