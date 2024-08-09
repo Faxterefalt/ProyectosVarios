@@ -64,6 +64,11 @@ function App() {
     setWinner(null)
   }
 
+  const checkedEndGame = (newBoard)=>{
+    //revisamos si hay empate, si no hay espacios vacíos en el tablero
+    return newBoard.every((square) => square !== null)
+  }
+
   const updateBoard = (index) => {
 
     //no actualizar posición si tiene algo
@@ -85,12 +90,15 @@ function App() {
       setWinner(newWinner) //la actualización del estado es asíncrona
       //si fuese síncrono, winner tendría el estado nuevo
 
-    }//checar si el juego ha terminado
+    }else if(checkedEndGame(newBoard)){
+      setWinner(false) //hubo empate
+    }
   }
 
   return (
     <main className='board'>
       <h1>Tic Tac Toe</h1>
+      <button onClick={resetGame}>Resetear juego</button>
       <section className='game'>
         {
           board.map((_,index)=>{
