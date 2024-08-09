@@ -58,6 +58,12 @@ function App() {
     return null
   }
 
+  const resetGame = () => {
+    setBoard(Array(9).fill(null))
+    setTurn(TURNS.X)
+    setWinner(null)
+  }
+
   const updateBoard = (index) => {
 
     //no actualizar posición si tiene algo
@@ -75,10 +81,11 @@ function App() {
     //revisar si hay ganador
     const newWinner = checkWinner(newBoard)
     if(newWinner){
-      alert(`Ganador: ${newWinner}`)
+
       setWinner(newWinner) //la actualización del estado es asíncrona
       //si fuese síncrono, winner tendría el estado nuevo
-    }
+
+    }//checar si el juego ha terminado
   }
 
   return (
@@ -109,6 +116,30 @@ function App() {
             </Square>
 
         </section>
+
+        {
+          winner !== null &&(
+            <section className="winner">
+              <div className="text">
+                <h2>
+                  {
+                    winner === false
+                      ? 'Empate'
+                      : 'Ganó:'
+                  }
+                </h2>
+
+                <header className="win">
+                  {winner && <Square>{winner}</Square>}
+                </header>
+
+                <footer>
+                  <button onClick={resetGame}>Empezar de nuevo</button>
+                </footer>
+              </div>
+            </section>
+          )
+        }
     </main>
     
   )
