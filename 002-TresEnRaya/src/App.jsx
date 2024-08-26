@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import confetti from 'canvas-confetti'
+import confetti from "canvas-confetti"
 import { TURNS } from './components/Constants.jsx';
 import { Square } from './components/Square.jsx';
 import { checkWinner } from './logic/board.js';
